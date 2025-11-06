@@ -1,15 +1,16 @@
-/*  your css code here. If applicable */
+
 body {
   font-family: Arial, sans-serif;
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #f8f8f8;
-  border-radius: 10px;
+  background-color: #fafafa;
+  color: #333;
+  margin: 40px;
+  line-height: 1.6;
 }
 
-h1, h2 {
-  text-align: center;
+h1,
+h2 {
+  text-align: left;
+  color: #333;
 }
 
 ul {
@@ -18,24 +19,28 @@ ul {
 }
 
 li {
-  background: white;
-  padding: 10px;
-  margin: 6px 0;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  margin: 8px 0;
 }
 
 button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
   background-color: #007bff;
   color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
   cursor: pointer;
 }
 
 button:hover {
   background-color: #0056b3;
+}
+
+#clear-cart-btn {
+  margin-top: 10px;
+  background-color: #dc3545;
+}
+
+#clear-cart-btn:hover {
+  background-color: #b02a37;
 }
