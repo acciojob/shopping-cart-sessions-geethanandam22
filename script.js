@@ -1,6 +1,4 @@
-// -----------------------------
-// Product Data
-// -----------------------------
+// Product data
 const products = [
   { id: 1, name: "Product 1", price: 10 },
   { id: 2, name: "Product 2", price: 20 },
@@ -9,18 +7,12 @@ const products = [
   { id: 5, name: "Product 5", price: 50 },
 ];
 
-// -----------------------------
-// DOM Elements
-// -----------------------------
+// DOM elements
 const productList = document.getElementById("product-list");
 const cartList = document.getElementById("cart-list");
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
-// -----------------------------
-// Utility Functions
-// -----------------------------
-
-// Get cart from sessionStorage (returns [] if empty)
+// Get cart from sessionStorage
 function getCart() {
   const cart = sessionStorage.getItem("cart");
   try {
@@ -35,10 +27,6 @@ function saveCart(cart) {
   sessionStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// -----------------------------
-// Render Functions
-// -----------------------------
-
 // Render product list
 function renderProducts() {
   productList.innerHTML = "";
@@ -51,7 +39,6 @@ function renderProducts() {
     productList.appendChild(li);
   });
 
-  // Add click listeners
   document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       const productId = parseInt(e.target.getAttribute("data-id"));
@@ -60,7 +47,7 @@ function renderProducts() {
   });
 }
 
-// Render cart list
+// Render cart items
 function renderCart() {
   cartList.innerHTML = "";
   const cart = getCart();
@@ -72,18 +59,19 @@ function renderCart() {
   });
 }
 
-// -----------------------------
-// Cart Operations
-// -----------------------------
-
-// Add product to cart
+// Add to cart and persist
 function addToCart(productId) {
   const product = products.find((p) => p.id === productId);
   if (!product) return;
 
+  // Get old cart and append new product
   const existingCart = getCart();
   existingCart.push(product);
+
+  // Save updated cart
   saveCart(existingCart);
+
+  // Render updated cart
   renderCart();
 }
 
@@ -93,14 +81,10 @@ function clearCart() {
   renderCart();
 }
 
-// -----------------------------
-// Event Listeners
-// -----------------------------
+// Event listeners
 clearCartBtn.addEventListener("click", clearCart);
 
-// -----------------------------
-// Initial Render
-// -----------------------------
+// Initial render
 renderProducts();
 renderCart();
 
