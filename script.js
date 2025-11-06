@@ -19,7 +19,11 @@ const clearCartBtn = document.getElementById("clear-cart-btn");
 // Get cart from sessionStorage (returns empty array if none)
 function getCart() {
   const cart = sessionStorage.getItem("cart");
-  return cart ? JSON.parse(cart) : [];
+  try {
+    return cart ? JSON.parse(cart) : [];
+  } catch {
+    return [];
+  }
 }
 
 // Save cart to sessionStorage
@@ -33,6 +37,7 @@ function saveCart(cart) {
 
 // Render product list with Add to Cart buttons
 function renderProducts() {
+  productList.innerHTML = ""; // ensure clean render
   products.forEach((product) => {
     const li = document.createElement("li");
     li.innerHTML = `
@@ -72,10 +77,17 @@ function addToCart(productId) {
   const product = products.find((p) => p.id === productId);
   if (!product) return;
 
-  const existingCart = getCart(); // fetch current session data
-  const updatedCart = [...existingCart, product]; // append new item
-  saveCart(updatedCart);
-  renderCart(); // update UI
+  // ✅ Read the current cart from sessionStorage
+  const existingCart = getCart();
+
+  // ✅ Append the new product (without overwriting)
+  existingCart.push(product);
+
+  // ✅ Save updated cart back
+  saveCart(existingCart);
+
+  // ✅ Update the displayed cart
+  renderCart();
 }
 
 // Clear cart and sessionStorage
@@ -92,5 +104,7 @@ clearCartBtn.addEventListener("click", clearCart);
 // -----------------------------
 // Initial Render
 // -----------------------------
+// ✅ Do not clear sessionStorage — just render based on what exists
 renderProducts();
 renderCart();
+
